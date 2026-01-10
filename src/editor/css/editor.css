@@ -1,3 +1,7 @@
+:root {
+    --selected-text: #ffdadb;
+}
+
 body {
     background: black;
 }
