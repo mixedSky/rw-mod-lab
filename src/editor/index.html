@@ -7,16 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>RWML - Editor</title>
-
     <link rel="images/icons/rw-mod-lab-logo.svg" type="image/svg+xml" href="icon.svg">
+
+    <!-- Page Style -->
     <link rel="stylesheet" href="css/editor.css">
+
+    <!-- Google API -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
     <div id="app">
-        
+
     </div>
+
+    <!-- Initialization stage -->
+    <div id="overlay">
+
+        <script src="\js\key-events-blocker.js">
+            const unblock = blockKeyboard();
+        </script>
+
+        <span id="loading-state" class="alumni-sans-pinstripe-bold text-large" data-i18n="loading-screen.start">
+            Loading localization...
+        </span>
+
+        <!-- Start Dynamic Localization -->
+        <script src="\js\localization-system.js"></script>
+    </div>
+
 </body>
 
 </html>
