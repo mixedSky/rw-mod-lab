@@ -1,8 +1,16 @@
-function getUserLanguage() {
-    const userLang = navigator.language || navigator.userLanguage;
-    const shortLang = userLang.split('-')[0];
-
-    return shortLang;
-}
 
 const userLanguage = getUserLanguage();
+
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === 1) {
+        translateElement(node, translations);
+        node.querySelectorAll('[data-i18n]').forEach(el => translateElement(el, translations));
+      }
+    });
+  });
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
