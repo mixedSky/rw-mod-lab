@@ -1,11 +1,8 @@
 import { ProcessScreen } from "../modules/process-screen.js";
 import { UserInputBlocker } from "./../modules/user-input-blocker.js";
-import { CSS } from "./../modules/constants/editor-css-classes.js"
+import { MAIN_IDS } from "./../modules/constants/editor-main-ids.js";
 
-const appContainer = document.createElement("div");
-appContainer.id = "app";
-appContainer.classList.add(CSS.APP);
-document.body.appendChild(appContainer);
+const appContainer = document.getElementById(MAIN_IDS.APP);
 
 ProcessScreen.setParent(appContainer);
 ProcessScreen.show("Start");
