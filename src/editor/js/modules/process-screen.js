@@ -1,25 +1,48 @@
 import { CSS } from "./constants/editor-css-classes.js";
 
 export class ProcessScreen {
+
+    static #parentContainer;
+
     static #screenElement;
     static #nameProcessElement;
 
     static #createBaseElements(){
-        const screenElement = document.createElement("div");
-        screenElement.classList.add(CSS.LOADING_SCREEN_BACKGROUND);
-        document.body.appendChild(screenElement);
-        
-        const nameProcessElement = document.createElement("span");
-        nameProcessElement.classList.add(CSS.ALUMNI_SANS_PINSTRIPE_BOLD);
-        nameProcessElement.classList.add(CSS.TEXT_LARGE);
-        screenElement.appendChild(nameProcessElement);
+        if (this.#screenElement){
+            console.error(new Error("The basic elements have already been created."));
+            debugger;
+            return;
+        }
 
-        return [screenElement, nameProcessElement];
+        this.#screenElement = document.createElement("div");
+        this.#screenElement.classList.add(CSS.LOADING_SCREEN_BACKGROUND);
+        
+        this.#nameProcessElement = document.createElement("span");
+        this.#nameProcessElement.classList.add(CSS.ALUMNI_SANS_PINSTRIPE_BOLD);
+        this.#nameProcessElement.classList.add(CSS.TEXT_LARGE);
+        this.#screenElement.appendChild(this.#nameProcessElement);
+
+        if (this.#parentContainer)
+            this.setParent(this.#parentContainer);
+    }
+
+    static setParent(parent){
+        if (!(parent instanceof HTMLDivElement)){
+            console.error(new Error("The argument was not a DOM type."));
+            debugger;
+            return;
+        }
+
+        this.#parentContainer = parent;
+
+        if (this.#screenElement){
+            this.#parentContainer.appendChild(this.#screenElement);
+        }
     }
 
     static show(nameProcess = ""){
-        if (!document.body){
-            console.error(new Error("The call was made before the body was loaded."));
+        if (!this.#parentContainer){
+            console.error(new Error("The parent for whom the screen should be displayed has not been assigned."));
             debugger;
             return;
         }
@@ -31,7 +54,7 @@ export class ProcessScreen {
         }
 
         if (!this.#screenElement){
-            [this.#screenElement, this.#nameProcessElement] = this.#createBaseElements();
+            this.#createBaseElements();
         }
         else{
             this.#screenElement.hidden = false;
@@ -41,8 +64,8 @@ export class ProcessScreen {
     }
 
     static hide(){
-        if (!document.body){
-            console.error(new Error("The call was made before the body was loaded."));
+        if (!document.body.app){
+            console.error(new Error("The call was made before the app element was loaded."));
             debugger;
             return;
         }
