@@ -1,4 +1,4 @@
-export class KeyEventsBlocker {
+export class UserInputBlocker {
 
     static #isKeyboardBlocked = false;
 
